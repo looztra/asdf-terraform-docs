@@ -55,7 +55,7 @@ get_filename() {
   echo "${binary_name}-${version}-${platform}"
 }
 
-# https://github.com/segmentio/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64
+# https://github.com/terraform-docs/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64
 
 get_download_url() {
   local version="$1"
@@ -64,7 +64,7 @@ get_download_url() {
   local filename
   filename="$(get_filename "$version" "$platform" "$binary_name")"
 
-  echo "https://github.com/segmentio/terraform-docs/releases/download/${version}/${filename}"
+  echo "https://github.com/terraform-docs/terraform-docs/releases/download/${version}/${filename}"
 }
 
 tmp_download_dir="$(mktemp -d -t 'asdf_XXXXXXXX')"
