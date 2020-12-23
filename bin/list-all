@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-github_coordinates=terraform-docs/terraform-docs
-releases_path="https://api.github.com/repos/${github_coordinates}/releases"
-cmd="curl -sL"
+readonly github_coordinates=terraform-docs/terraform-docs
+readonly releases_path="https://api.github.com/repos/${github_coordinates}/releases"
+cmd="curl -Ls"
 if [ -n "$GITHUB_API_TOKEN" ]; then
   cmd="$cmd -H 'Authorization: token $GITHUB_API_TOKEN'"
 fi
