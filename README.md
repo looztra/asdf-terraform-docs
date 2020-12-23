@@ -1,8 +1,15 @@
 # asdf-terraform-docs
 
-[![Build Status](https://travis-ci.org/looztra/asdf-terraform-docs.svg?branch=master)](https://travis-ci.org/looztra/asdf-terraform-docs)
+![AllInOne](https://github.com/looztra/asdf-terraform-docs/workflows/AllInOne/badge.svg)
+[![GitHub license](https://img.shields.io/github/license/looztra/asdf-terraform-docs?style=plastic)](https://github.com/looztra/asdf-terraform-docs/blob/master/LICENSE)
 
-[terraform-docs](https://github.com/segmentio/terraform-docs/) plugin for the [asdf](https://github.com/asdf-vm/asdf) version manager.
+## Build History
+
+[![Build history](https://buildstats.info/github/chart/looztra/asdf-terraform-docs?branch=master)](https://github.com/looztra/asdf-terraform-docs/actions)
+
+## terraform-docs
+
+<https://github.com/terraform-docs/terraform-docs>
 
 ## Install
 
@@ -13,3 +20,7 @@ asdf plugin-add terraform-docs https://github.com/looztra/asdf-terraform-docs
 ## Use
 
 Check out the [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to install and manage versions of terraform-docs.
+
+## Source code
+
+This source code has been generated with : `cookiecutter --overwrite-if-exists --directory plugins/terraform-docs --no-input https://github.com/looztra/cookiecutter-asdf-plugin`
