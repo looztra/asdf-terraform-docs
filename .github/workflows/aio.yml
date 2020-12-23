@@ -23,6 +23,7 @@ jobs:
         uses: asdf-vm/actions/plugin-test@v1
         with:
           command: terraform-docs --version
+          version: v0.10.1
 
   lint:
     runs-on: ubuntu-latest
