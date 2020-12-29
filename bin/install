@@ -13,15 +13,15 @@ readonly g_binary_altname="$NO_BINARY_ALTNAME"
 #
 # __VERSION__/__VERSION_SHORT__/__BINARY_NAME__/__PLATFORM__
 #
-readonly g_filename_template=__BINARY_NAME__-__VERSION__-__PLATFORM__
+readonly g_filename_template=__BINARY_NAME__-v__VERSION__-__PLATFORM__
 #
 # __GITHUB_COORDINATES__/__VERSION__/__VERSION_SHORT__/__FILENAME__
 #
-readonly g_download_url_template=https://github.com/__GITHUB_COORDINATES__/releases/download/__VERSION__/__FILENAME__
+readonly g_download_url_template=https://github.com/__GITHUB_COORDINATES__/releases/download/v__VERSION__/__FILENAME__
 #
 # __ARCHIVE_DIR__/__BINARY_NAME__/__VERSION__/__VERSION_SHORT__/__PLATFORM__
 #
-readonly g_binary_path_in_archive_template=__ARCHIVE_DIR__/__BINARY_NAME__-__VERSION__-__PLATFORM__
+readonly g_binary_path_in_archive_template=__ARCHIVE_DIR__/__BINARY_NAME__-v__VERSION__-__PLATFORM__
 readonly g_downloaded_file_is_not_an_archive=true
 readonly g_platform_pattern=uname_l_dash_amd64 # one of uname_c_x86_64|uname_l_dash_amd64|uname_l_underscore_amd64|custom
 
