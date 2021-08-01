@@ -29,5 +29,3 @@ This source code has been generated with :
 cookiecutter --overwrite-if-exists --directory plugins/terraform-docs --no-input https://github.com/looztra/cookiecutter-asdf-plugin
 
 ```
-
-

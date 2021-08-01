@@ -5,5 +5,5 @@
 }
 
 @test "can install 0.10.1" {
-  asdf install terraform-docs 0.10.1
+  asdf install terraform-docs 0.14.1
 }
