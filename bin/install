@@ -14,12 +14,12 @@ readonly g_binary_altname="$NO_BINARY_ALTNAME"
 #
 # available : __VERSION__/__VERSION_SHORT__/__BINARY_NAME__/__PLATFORM__
 #
-readonly g_filename_template=__BINARY_NAME__-v__VERSION__-__PLATFORM__
+readonly g_filename_template=__BINARY_NAME__-v__VERSION_SHORT__-__PLATFORM__
 #
 # available : __GITHUB_COORDINATES__/__VERSION__/__VERSION_SHORT__/__FILENAME__
 #
 # shellcheck disable=SC2034
-readonly g_download_url_template=https://github.com/__GITHUB_COORDINATES__/releases/download/v__VERSION__/__FILENAME__.tar.gz
+readonly g_download_url_template=https://github.com/__GITHUB_COORDINATES__/releases/download/v__VERSION_SHORT__/__FILENAME__.tar.gz
 #
 # available : __ARCHIVE_DIR__/__BINARY_NAME__/__VERSION__/__VERSION_SHORT__/__PLATFORM__
 #
