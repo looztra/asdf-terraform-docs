@@ -11,3 +11,11 @@
 @test "can install v0.14.1" {
   asdf install terraform-docs v0.14.1
 }
+
+@test "can install 0.10.1" {
+  asdf install terraform-docs 0.10.1
+}
+
+@test "can install v0.10.1" {
+  asdf install terraform-docs v0.10.1
+}
