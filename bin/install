@@ -11,7 +11,6 @@ set -o pipefail
 # https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.1/terraform-docs-v0.10.1-darwin-amd64
 # https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.1/terraform-docs-v0.10.1-linux-amd64
 
-
 readonly NO_BINARY_ALTNAME=@@UNDEFINED@@
 # shellcheck disable=SC2034
 readonly g_github_coordinates=terraform-docs/terraform-docs
@@ -124,7 +123,6 @@ install_tool() {
   platform=$(get_platform)
   download_url=$(get_download_url "$version" "$platform" "$binary_name")
 
-
   op=$(vercomp "$version_short" "0.11.0")
   if [[ "${op}" != "2" ]]; then
     download_url="${download_url}.tar.gz"
@@ -132,7 +130,6 @@ install_tool() {
   else
     downloaded_file_is_not_an_archive="true"
   fi
-
 
   download_sub_path_dir=$tmp_download_dir/sub
   mkdir -p "$download_sub_path_dir"
