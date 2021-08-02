@@ -3,8 +3,14 @@
 set -e
 set -o pipefail
 
-# https://github.com/terraform-docs/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64
-# https://github.com/terraform-docs/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-darwin-amd64
+# starting from v0.11.0
+# https://github.com/terraform-docs/terraform-docs/releases/download/v0.14.1/terraform-docs-v0.14.1-darwin-amd64.tar.gz
+# https://github.com/terraform-docs/terraform-docs/releases/download/v0.14.1/terraform-docs-v0.14.1-linux-amd64.tar.gz
+
+# up to v0.10.1
+# https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.1/terraform-docs-v0.10.1-darwin-amd64
+# https://github.com/terraform-docs/terraform-docs/releases/download/v0.10.1/terraform-docs-v0.10.1-linux-amd64
+
 
 readonly NO_BINARY_ALTNAME=@@UNDEFINED@@
 # shellcheck disable=SC2034
@@ -18,8 +24,9 @@ readonly g_filename_template=__BINARY_NAME__-v__VERSION_SHORT__-__PLATFORM__
 #
 # available : __GITHUB_COORDINATES__/__VERSION__/__VERSION_SHORT__/__FILENAME__
 #
+# The .tar.gz will be added if needed in the main func according to the target version
 # shellcheck disable=SC2034
-readonly g_download_url_template=https://github.com/__GITHUB_COORDINATES__/releases/download/v__VERSION_SHORT__/__FILENAME__.tar.gz
+readonly g_download_url_template=https://github.com/__GITHUB_COORDINATES__/releases/download/v__VERSION_SHORT__/__FILENAME__
 #
 # available : __ARCHIVE_DIR__/__BINARY_NAME__/__VERSION__/__VERSION_SHORT__/__PLATFORM__
 #
@@ -51,7 +58,10 @@ function log() {
   fi >&2
 }
 
-# from https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
+# inspired from https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
+# 0 for '='
+# 1 for '>'
+# 2 for '<'
 function vercomp() {
   if [[ "$1" == "$2" ]]; then
     return 0
@@ -69,13 +79,18 @@ function vercomp() {
       ver2[i]=0
     fi
     if ((10#${ver1[i]} > 10#${ver2[i]})); then
-      return 1
+      # >
+      echo 1
+      exit 0
     fi
     if ((10#${ver1[i]} < 10#${ver2[i]})); then
-      return 2
+      # <
+      echo 2
+      exit 0
     fi
   done
-  return 0
+  # =
+  echo 0
 }
 
 install_tool() {
@@ -97,13 +112,28 @@ install_tool() {
   local download_url
   local download_target_file
   local download_sub_path_dir
+  local version_short op bpath_in_archive
 
   if [[ "$install_type" != "version" ]]; then
     log ERROR "Install of type [$install_type] not supported"
   fi
 
+  #
+  version_short=$(get_version_short "$version")
+  #
   platform=$(get_platform)
   download_url=$(get_download_url "$version" "$platform" "$binary_name")
+
+
+  op=$(vercomp "$version_short" "0.11.0")
+  if [[ "${op}" != "2" ]]; then
+    download_url="${download_url}.tar.gz"
+    downloaded_file_is_not_an_archive="false"
+  else
+    downloaded_file_is_not_an_archive="true"
+  fi
+
+
   download_sub_path_dir=$tmp_download_dir/sub
   mkdir -p "$download_sub_path_dir"
   download_target_file="$download_sub_path_dir/"$(get_filename "$version" "$platform" "$binary_name")
@@ -127,7 +157,11 @@ install_tool() {
     cp "$download_target_file" "$tmp_download_dir"
   fi
   log INFO "Copying binaries"
-  cp "$(get_binary_path_in_archive "${tmp_download_dir}" "${binary_name}" "${version}" "${platform}")" "${full_path_to_binary}"
+  bpath_in_archive=$(get_binary_path_in_archive "${tmp_download_dir}" "${binary_name}" "${version}" "${platform}")
+  if [[ "${op}" == "2" ]]; then
+    bpath_in_archive=${bpath_in_archive}-v${version_short}-${platform}
+  fi
+  cp "${bpath_in_archive}" "${full_path_to_binary}"
   chmod +x "${full_path_to_binary}"
   if [[ -n "$binary_alt_name" ]]; then
     cp "${full_path_to_binary}" "${full_path_to_alt_binary}"
