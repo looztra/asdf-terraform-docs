@@ -187,6 +187,18 @@ get_platform() {
   get_platform_${g_platform_pattern}
 }
 
+get_platform_arch() {
+  uname_arch=$(uname -m)
+  if [ "x86_64" = $uname_arch ]; then
+    arch="amd64"
+  elif [ "arm64" =  $uname_arch ]; then
+    arch="arm64"
+  else
+    arch="386"
+  fi
+  echo $arch
+}
+
 get_platform_custom() {
   echo "NOT USED"
 }
@@ -196,7 +208,7 @@ get_platform_uname_c_x86_64() {
 }
 
 get_platform_uname_l_dash_amd64() {
-  echo "$(uname | tr '[:upper:]' '[:lower:]')-amd64"
+  echo "$(uname | tr '[:upper:]' '[:lower:]')-$(get_platform_arch)"
 }
 
 get_platform_uname_l_underscore_amd64() {
