@@ -192,10 +192,10 @@ get_platform_custom() {
   machine_hardware_name=${ASDF_OVERWRITE_ARCH:-"$(uname -m)"}
 
   case "${machine_hardware_name}" in
-    'x86_64') local cpu_type="amd64" ;;
-    'aarch64') local cpu_type="arm64" ;;
-    'armv7l') local cpu_type="arm" ;;
-    *) local cpu_type="${machine_hardware_name}" ;;
+  'x86_64') local cpu_type="amd64" ;;
+  'aarch64') local cpu_type="arm64" ;;
+  'armv7l') local cpu_type="arm" ;;
+  *) local cpu_type="${machine_hardware_name}" ;;
   esac
 
   echo "$(uname | tr '[:upper:]' '[:lower:]')-${cpu_type}"
@@ -240,6 +240,7 @@ get_download_url() {
 }
 
 #
-readonly _tmp_download_dir="$(mktemp -d -t 'asdf_XXXXXXXX')"
+_tmp_download_dir="$(mktemp -d -t 'asdf_XXXXXXXX')"
+readonly _tmp_download_dir
 trap 'rm -rf "${_tmp_download_dir}"' EXIT
 install_tool "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH" "$_tmp_download_dir" "$g_binary_name" "$g_binary_altname" "$g_downloaded_file_is_not_an_archive"
