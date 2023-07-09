@@ -2,11 +2,11 @@ name: AllInOne
 
 on:
   push:
-    paths-ignore:
-      - '**.md'
+    branches:
+      - master
   pull_request:
-    paths-ignore:
-      - '**.md'
+    branches:
+      - master
 
 jobs:
   plugin_test:
